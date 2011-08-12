@@ -1,0 +1,30 @@
+#!/bin/bash
+# This is a simple build script, place your post-deploy but pre-start commands
+# in this script.  This script gets executed directly, so it could be python,
+# php, ruby, etc.
+
+set -e
+
+if [ -z $OPENSHIFT_DB_HOST ]
+then
+    echo 1>&2
+    echo "Could not find mysql database.  Please run:" 1>&2
+    echo "rhc-ctl-app -a $OPENSHIFT_APP_NAME -e add-mysql-5.1" 1>&2
+    echo "then make a sample commit (add whitespace somewhere) and re-push" 1>&2
+    echo 1>&2
+    exit 5
+fi
+
+# Confirm database exists, if not create it
+if ! /usr/bin/mysql -u "$OPENSHIFT_DB_USERNAME" --password="$OPENSHIFT_DB_PASSWORD" -h "$OPENSHIFT_DB_HOST" -e "show tables;" railsapp > /dev/null
+then
+    echo
+    echo "Database not found!  Creating and importing"
+    echo
+    /usr/bin/mysqladmin -u "$OPENSHIFT_DB_USERNAME" --password="$OPENSHIFT_DB_PASSWORD" -h "$OPENSHIFT_DB_HOST" create "railsapp"
+    /usr/bin/mysql -u "$OPENSHIFT_DB_USERNAME" --password="$OPENSHIFT_DB_PASSWORD" -h "$OPENSHIFT_DB_HOST" railsapp < "$OPENSHIFT_REPO_DIR/.openshift/action_hooks/railsapp.sql"
+    echo
+    echo "done."
+else
+    echo "Database found, skipping import."
+fi
