@@ -28,4 +28,4 @@ Then push the repo upstream
 
 That's it, you can now checkout your application at:
 
-    http://railsapp-$yourlogin.rhcloud.com
+    http://railsapp-$yournamespace.rhcloud.com
