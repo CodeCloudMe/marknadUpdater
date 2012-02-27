@@ -10,11 +10,11 @@ Create an account at http://openshift.redhat.com/
 
 Create a rails application
 
-    rhc-create-app -a railsapp -t ruby-1.8
+    rhc app create -a railsapp -t ruby-1.8
 
 Add mysql support to your application
     
-    rhc-ctl-app -a railsapp -e add-mysql-5.1
+    rhc app cartridge add -a railsapp -c mysql-5.1
 
 Add this upstream rails quickstart repo
 
