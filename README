@@ -19,7 +19,7 @@ Add mysql support to your application
 Add this upstream rails quickstart repo
 
     cd railsapp
-    git remote add upstream -m master git@github.com:openshift/rails-example.git
+    git remote add upstream -m master git://github.com/openshift/rails-example.git
     git pull -s recursive -X theirs upstream master
 
 Then push the repo upstream
