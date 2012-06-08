@@ -29,3 +29,32 @@ Then push the repo upstream
 That's it, you can now checkout your application at:
 
     http://railsapp-$yourlogin.rhcloud.com
+
+Security Considerations
+-----------------------
+This repository contains configuration files with security related variables.
+
+Since this is a shared repository, any applications derived from it will share those variables, thus reducing the security of your application.
+
+You should follow the directions below and push your updated files to OpenShift immediately.
+
+### Procedure
+
+The following table lists files and variables that should be changed.
+
+These values can be replaced by the output of `rake secret`, which generates a securely random 128 character string.
+
+<table>
+  <tr>
+    <th>File</th>
+    <th>Variable</th>
+  </tr>
+  <tr>
+    <td>config/initializers/secret_token.rb</td> 
+    <td>Railsapp::Application.config.secret_token</td>
+  </tr>
+  <tr>
+    <td>config/initializers/session_store.rb</td>
+    <td>Railsapp::Application.config.session_store</td>
+  </tr>
+</table>
