@@ -6,6 +6,9 @@
 
 set -e
 
+# Set the OPENSHIFT_SECRET_TOKEN (only needed until this is done natively)
+OPENSHIFT_SECRET_TOKEN=$(echo "${OPENSHIFT_APP_NAME}-${OPENSHIFT_APP_UUID}" | sha256sum | cut -d' ' -f1)
+
 if [ -z "$OPENSHIFT_DB_HOST" ]
 then
     echo 1>&2

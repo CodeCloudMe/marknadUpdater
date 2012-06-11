@@ -1,39 +1,37 @@
 require 'test_helper'
 
+# Set this just in case the name changes
+TOKEN_NAME = 'OPENSHIFT_SECRET_TOKEN'
+
 class SecretGeneratorTest < ActiveSupport::TestCase
-  # Ensure we're using a temporary directory for OPENSHIFT_DATA_DIR
   setup do
     @defaults = {
-      :secret_key   => 'super_secret_cookie_key',
-      :secret_token => 'super_secret_token'
+      :session_store  => 'super_secret_cookie_key',
+      :token          => 'super_secret_token'
     }
-    @tempdir = Dir.mktmpdir
-    ENV['OPENSHIFT_DATA_DIR'] = @tempdir
+    ENV[TOKEN_NAME] = SecureRandom.hex(64)
   end
 
-  # Ensure we remove the OPENSHIFT_DATA_DIR when we're done
-  teardown do
-    if @tempdir && File.directory?(@tempdir)
-      FileUtils.remove_entry_secure @tempdir
-    end
+  def unset_token
+    ENV[TOKEN_NAME] = nil
   end
 
-  def unset_data_dir
-    ENV['OPENSHIFT_DATA_DIR'] = nil
+  def should_not_be(defaults,expected=nil)
+    run_assertions(defaults,expected,false)
   end
 
-  def should_not_be(hash)
-    run_assertions(hash,false)
+  def should_be(defaults,expected=nil)
+    run_assertions(defaults,expected)
   end
 
-  def should_be(hash)
-    run_assertions(hash)
-  end
+  def run_assertions(defaults,expected,match = true)
+    results = initialize_secrets(defaults)
+    expected ||= defaults
 
-  def run_assertions(expected,match = true)
-    get_vals.each do |key,value|
+    results.each do |key,value|
       assert_not_nil value
       assert_not_equal '', value
+      assert_equal expected[key].length, value.length
 
       if match
         assert_equal expected[key], value 
@@ -41,53 +39,32 @@ class SecretGeneratorTest < ActiveSupport::TestCase
         assert_not_equal expected[key], value 
       end
     end
+    results
   end
 
-  def get_vals
-    {
-      :secret_token => Rails.application.config.secret_token,
-      :secret_key =>   Rails.application.config.session_options[:key]
-    }
+  def initialize_secrets(hash)
+    Hash[hash.map do |k,v|
+      [k,initialize_secret(k,v)]
+    end]
   end
 
-  def each_file
-    ['secret_token','secret_key'].each do |file|
-      yield File.join(@tempdir,file)
-    end
-  end
+  # These tests ensure that we have the right behavior depending on if 
+  #   the secret token environment variable is set properly
 
-  # These tests ensure that we have the right behavior depending on if we have access to OPENSHIFT_DATA_DIR
-  #  and whether the file has already been generated
-  test 'it should use default values if no directory given' do
-    unset_data_dir
-    initialize_secrets(@defaults)
+  test "it should use default values if #{TOKEN_NAME} not defined" do
+    unset_token
     should_be(@defaults)
   end
 
-  test 'it should use defaults if cannot write file' do
-    each_file do |file|
-      File.open(file,'w',000)
-    end
-    initialize_secrets(@defaults)
-    should_be(@defaults)
-  end
-
-  test 'it should use random value if file empty' do
-    each_file do |file|
-      File.open(file,'w'){|f| f.write '' }
-    end
-    initialize_secrets(@defaults)
+  test "it should use hashed values if #{TOKEN_NAME} defined" do
     should_not_be(@defaults)
   end
 
-  test 'it should reuse values if it can write file' do
+  test "values should be consistent if #{TOKEN_NAME} defined" do
     # Run the first time to set the variables
-    initialize_secrets(@defaults)
-    should_not_be(@defaults)
-    expected = get_vals
+    results = should_not_be(@defaults)
 
     # Running the second time should reuse variables
-    initialize_secrets(@defaults)
-    should_be(expected)
+    should_be(@defaults,results)
   end
 end
