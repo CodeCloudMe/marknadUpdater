@@ -12,8 +12,10 @@ class SecretGeneratorTest < ActiveSupport::TestCase
     ENV[TOKEN_NAME] = SecureRandom.hex(64)
   end
 
-  def unset_token
-    ENV[TOKEN_NAME] = nil
+  def unset_env
+    [TOKEN_NAME,'OPENSHIFT_APP_NAME','OPENSHIFT_APP_UUID'].each do |name|
+      ENV[name] = nil
+    end
   end
 
   def should_not_be(defaults,expected=nil)
@@ -48,11 +50,27 @@ class SecretGeneratorTest < ActiveSupport::TestCase
     end]
   end
 
+  # These tests ensure our environment is reported correctly
+  test "it should not be able to get or create #{TOKEN_NAME}" do
+    unset_env
+    assert_nil get_env_secret
+  end
+
+  test "it should be able to create #{TOKEN_NAME}" do
+    unset_env
+    ENV['OPENSHIFT_APP_NAME'] = 'name'
+    ENV['OPENSHIFT_APP_UUID'] = 'uuid'
+    hash = Digest::SHA256.hexdigest(%w(name uuid).join('-'))
+
+    assert_not_nil get_env_secret
+    assert_equal hash, get_env_secret
+  end
+
   # These tests ensure that we have the right behavior depending on if 
   #   the secret token environment variable is set properly
 
   test "it should use default values if #{TOKEN_NAME} not defined" do
-    unset_token
+    unset_env
     should_be(@defaults)
   end
 
