@@ -16,6 +16,6 @@ production:
   reconnect: false
   pool: 5
   database: <%=ENV['OPENSHIFT_APP_NAME']%>
-  username: <%=ENV['OPENSHIFT_DB_USERNAME']%>
-  password: <%=ENV['OPENSHIFT_DB_PASSWORD']%>
-  socket:   <%=ENV['OPENSHIFT_DB_SOCKET']%>
+  username: <%=ENV['OPENSHIFT_MYSQL_DB_USERNAME']%>
+  password: <%=ENV['OPENSHIFT_MYSQL_DB_PASSWORD']%>
+  socket:   <%=ENV['OPENSHIFT_MYSQL_DB_SOCKET']%>

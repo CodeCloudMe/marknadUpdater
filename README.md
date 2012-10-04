@@ -77,6 +77,20 @@ will be the same.
     rhc app create -a railsapp -t ruby-1.9
     ```
 
+   **Note:** To support Ruby 1.8,
+   ```
+   +++ config/initializers/wrap_parameters.rb
+   @@ -5,7 +5,7 @@
+    
+     # Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
+      ActiveSupport.on_load(:action_controller) do
+      -  wrap_parameters format: [:json]
+      +  wrap_parameters ({:format => [:json]})
+       end
+  ```
+
+
+
 1. Add mysql support to your application
 
     ```
