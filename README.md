@@ -19,19 +19,8 @@ OpenShift.
 
 ### Assets ###
 Your application is set to precompile the assets every time you push
-to OpenShift, so there is no need to store them in your git repository!
-
-Since your repository is non-persistent, we cannot store them directly
-in `public/assets` (which is the default location), because it would be
-overwritten the next time you pushed your application.
-Instead, we create a symlink from your persistent
-`$OPENSHIFT_DATA_DIR/assets` into your `public` folder, which Rails will
-then use.
-
-If you need to store your precompiled assets in your repository, you
-will need to modify your `.openshift/action_hooks/pre_build` to NOT
-create the symlink, otherwise it will overwrite your `public/assets`
-folder.
+to OpenShift. Any assets you commit to your repo will be preserved
+alongside those which are generated during the build.
 
 ### Security ###
 Since these quickstarts are shared code, we had to take special
