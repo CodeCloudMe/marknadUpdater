@@ -83,7 +83,7 @@ will be the same.
 1. Add mysql support to your application
 
     ```
-    rhc app cartridge add -a railsapp -c mysql-5.1
+    rhc cartridge add -a railsapp -c mysql-5.1
     ```
 
 1. Add this upstream Rails quickstart repository
