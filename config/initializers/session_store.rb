@@ -11,4 +11,4 @@ RailsApp::Application.config.session_store :cookie_store, :key => initialize_sec
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# Railsapp::Application.config.session_store :active_record_store
+# RailsApp::Application.config.session_store :active_record_store

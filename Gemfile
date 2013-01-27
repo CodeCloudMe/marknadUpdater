@@ -38,7 +38,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-# This version needs to be hardcoded for OpenShift compatability
+# This version needs to be hardcoded for OpenShift compatibility
 gem 'thor', '= 0.14.6'
 
 # This needs to be installed so we can run Rails console on OpenShift directly
