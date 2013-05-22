@@ -6,25 +6,6 @@
 
 set -e
 
-
-STORED_ASSETS="${OPENSHIFT_DATA_DIR}/assets"
-LIVE_ASSETS="${OPENSHIFT_REPO_DIR}/public/assets"
-
-# Ensure our stored assets directory exists
-if [ ! -d "${STORED_ASSETS}" ]; then
-  echo "  Creating permanent assets directory"
-  mkdir "${STORED_ASSETS}"
-fi
-
-# Create symlink to stored assets unless we're uploading our own assets
-if [ -d "${LIVE_ASSETS}" ]; then
-  echo "  WARNING: Assets included in git repository, not using stored assets"
-else
-  echo "  Restoring stored assets"
-  ln -sf "${STORED_ASSETS}" "${LIVE_ASSETS}"
-fi
-
-
 if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]
 then
     echo 1>&2
