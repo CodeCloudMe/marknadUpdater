@@ -3,23 +3,3 @@
 # available.  Otherwise it will execute while your application is stopped
 # before the build step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
-
-# We are in ~/git/*.git, and we need to create symbolic links with relative paths
-STORED_ASSETS="../../app-root/data/assets"
-LIVE_ASSETS="../../app-root/repo/public/assets"
-
-# Ensure our stored assets directory exists
-if [ ! -d "${STORED_ASSETS}" ]; then
-  echo "  Creating permanent assets directory ${STORED_ASSETS}"
-  mkdir "${STORED_ASSETS}"
-fi
-
-# Create symlink to stored assets unless we're uploading our own assets
-if [ -d "${LIVE_ASSETS}" ]; then
-  echo "  WARNING: Assets included in git repository, not using stored assets"
-else
-  ## our symbolic link is 2 directories deeper
-	STORED_ASSETS_RELATIVE="../../${STORED_ASSETS}"
-  echo "  Restoring stored assets with 'ln -sf \"${STORED_ASSETS_RELATIVE}\" \"${LIVE_ASSETS}\"' in $PWD"
-  ln -sf "${STORED_ASSETS_RELATIVE}" "${LIVE_ASSETS}"
-fi
