@@ -80,10 +80,16 @@ will be the same.
 
 
 
-1. Add mysql support to your application
+1. Add database support to your application
 
     ```
     rhc cartridge add -a railsapp -c mysql-5.1
+    ```
+
+    or
+
+    ```
+    rhc cartridge add -a railsapp -c postgresql-9.2
     ```
 
 1. Add this upstream Rails quickstart repository
