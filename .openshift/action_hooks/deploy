@@ -26,7 +26,9 @@ if [ -z "$RAILS_DB" ]; then
   echo 1>&2
   exit 5
 else
-  set_env_var 'RAILS_DB' $RAILS_DB $OPENSHIFT_HOMEDIR/.env/user_vars
+  if ! [ "$(type -t set_env_var)" == "function" ]; then
+    set_env_var 'RAILS_DB' $RAILS_DB $OPENSHIFT_HOMEDIR/.env/user_vars
+  fi
 fi
 
 pushd ${OPENSHIFT_REPO_DIR} > /dev/null
