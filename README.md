@@ -39,6 +39,28 @@ from `initialize_secret(:b)` but they will also be consistent, so any
 time your application uses them (even across reboots), you know they
 will be the same.
 
+### Developmnent mode ###
+When you develop your Rails application in OpenShift, you can also enable the
+'development' environment by setting the `RAILS_ENV` environment variable,
+using the `rhc` client, like:
+
+```
+$ rhc env set RAILS_ENV=development
+```
+
+If you do so, OpenShift will run your application under 'development' mode.
+In development mode, your application will:
+
+* Show more detailed errors in browser
+* Skip static assets (re)compilation
+* Skip web server restart, as the code is reloaded automatically
+* Skip `bundle` command if the Gemfile is not modified
+
+Development environment can help you debug problems in your application
+in the same way as you do when developing on your local machine.
+However, we strong advise you to not run your application in this mode
+in production.
+
 ##### Modified Files #####
 
 <table>
