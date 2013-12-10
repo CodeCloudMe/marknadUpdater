@@ -105,7 +105,7 @@ in production.
 1. Add database support to your application
 
     ```
-    rhc cartridge add -a railsapp -c mysql-5.1
+    rhc cartridge add -a railsapp -c mysql-5.5
     ```
 
     or
