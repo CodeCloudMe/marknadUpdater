@@ -39,7 +39,7 @@ from `initialize_secret(:b)` but they will also be consistent, so any
 time your application uses them (even across reboots), you know they
 will be the same.
 
-### Developmnent mode ###
+### Development mode ###
 When you develop your Rails application in OpenShift, you can also enable the
 'development' environment by setting the `RAILS_ENV` environment variable,
 using the `rhc` client, like:
