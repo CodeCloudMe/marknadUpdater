@@ -82,7 +82,7 @@ in production.
 
 ## Manual Installation ##
 
-1. Create an account at http://openshift.redhat.com/
+1. Create an account at https://www.openshift.com
 
 1. Create a rails application
 
@@ -133,7 +133,7 @@ in production.
 1. That's it! Enjoy your new Rails application!
 
 
-[template]: https://openshift.redhat.com/app/console/application_types/rails
+[template]: https://openshift.redhat.com/app/console/application_types
 
 License
 -------
