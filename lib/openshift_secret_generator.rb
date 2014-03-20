@@ -23,7 +23,7 @@ def generate_secret_token
   Rails.logger.debug "No secret token environment variable set"
   (name,uuid) = ENV.values_at('OPENSHIFT_APP_NAME','OPENSHIFT_APP_UUID')
   if name && uuid
-    Rails.logger.debug "Running on Openshift, creating OPENSHIFT_SECRET_TOKEN"
+    Rails.logger.debug "Running on OpenShift, creating OPENSHIFT_SECRET_TOKEN"
     Digest::SHA256.hexdigest([name,uuid].join('-'))
   else
     nil
