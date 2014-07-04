@@ -1,28 +1,42 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple registration/login rails starter app using the Sorcery gem. 
+To your own version of this from scratch, check out this tutorial:
+https://github.com/NoamB/sorcery/wiki/Simple-Password-Authentication
 
-Things you may want to cover:
 
 * Ruby version
+1.9+
 
 * System dependencies
+Rails 4.0+
 
-* Configuration
+* Configuration (OpenShift)
+To deploy on openshift, you will need to:
+ In OpenShift, after clicking on your application, click "Want to login to your application". Copy the "ssh 53ab76df5973c[...]" " code
 
-* Database creation
+Paste that into your terminal. Now, navigate to your source code with: cd app-root/runtime/repo
 
-* Database initialization
+Now run: rake secret
 
-* How to run the test suite
+Copy the secret key that is displayed (should be many letters and numbers)
 
-* Services (job queues, cache servers, search engines, etc.)
+Now logout with of your OpenShift server with: exit
 
-* Deployment instructions
+Now that you're back into your project folder on local, find your openshift app name by locating it in the list after running from the terminal: rhc setup
 
-* ...
+Run rhc setup to see a list of your apps. Take note of your Rails app name. It will be "yourOpenShiftAppName" in the following bit. Also, "yourCodeFromTheServer" is the secret code your copied when you raked.
+
+Now that you're back into your folder, set your SECRET_KEY_BASE: rhc set-env SECRET_KEY_BASE=yourCodeFromTheServer -a yourOpenShiftAppName
+
+Now restart your app: rhc app-stop yourOpenShiftAppName rhc app-start yourOpenShiftAppName
+
+Navigate to your OpenShift URL once that's complete and you should see this: http://woowoorks-tester588.rhcloud.com/posts
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+To run on your local, clone this repo.
+Then once you cd into the app deirectory, run:
+ rails server
+
+
+
