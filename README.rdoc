@@ -13,7 +13,7 @@ Rails 4.0+
 
 * Configuration (OpenShift)
 To deploy on openshift, you will need to:
- In OpenShift, after clicking on your application, click "Want to login to your application". Copy the "ssh 53ab76df5973c[...]" " code
+In OpenShift, after clicking on your application, click "Want to login to your application". Copy the "ssh 53ab76df5973c[...]" " code
 
 Paste that into your terminal. Now, navigate to your source code with: cd app-root/runtime/repo
 
