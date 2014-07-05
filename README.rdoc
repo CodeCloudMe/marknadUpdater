@@ -11,9 +11,13 @@ https://github.com/NoamB/sorcery/wiki/Simple-Password-Authentication
 * System dependencies
 Rails 4.0+
 
-* Configuration (OpenShift)
+* Configuration
+(OpenShift)
 To deploy on openshift, you will need to:
-In OpenShift, after clicking on your application, click "Want to login to your application". Copy the "ssh 53ab76df5973c[...]" " code
+In OpenShift, create a new Ruby on Rails application stack. Once your app is up, navigate to your application page.
+Once you are on your application page, click "Want to login to your application".
+
+ Copy the "ssh 53ab76df5973c[.....]" code
 
 Paste that into your terminal. Now, navigate to your source code with: cd app-root/runtime/repo
 
@@ -36,7 +40,11 @@ Navigate to your OpenShift URL once that's complete and you should see this: htt
 
 To run on your local, clone this repo.
 Then once you cd into the app deirectory, run:
+ bundle install
+ bin/rake db:migrate RAILS_ENV=development
  rails server
+
+ App will look similar to this: http://login-tester588.rhcloud.com
 
 
 
