@@ -43,3 +43,5 @@ gem 'therubyracer'
 
 gem 'twitter-bootstrap-rails'  
 gem 'less-rails' 
+
+gem 'instagram'

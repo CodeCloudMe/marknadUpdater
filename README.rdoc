@@ -1,8 +1,7 @@
 == README
 
-This is a simple registration/login rails starter app using the Sorcery gem. 
-To your own version of this from scratch, check out this tutorial:
-https://github.com/NoamB/sorcery/wiki/Simple-Password-Authentication
+This is a Rails web app for updating the Marknad iPhone app with information on products in Instagram photos featured there.
+Note: you might want to use your own Access Token, as this sample one might expire. We will update the repo accordiningly.
 
 
 * Ruby version
@@ -44,7 +43,11 @@ Then once you cd into the app deirectory, run:
  bin/rake db:migrate RAILS_ENV=development
  rails server
 
- App will look similar to this: http://login-tester588.rhcloud.com
+ App will look similar to this: http://railsupdater-tester588.rhcloud.com
+
+ NOTE:
+ To add fields to a model after you have scaffolded, run:
+ rails generate migration add_column_name_to_*modeName* columnName:string
 
 
 

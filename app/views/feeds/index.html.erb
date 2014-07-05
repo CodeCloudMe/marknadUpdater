@@ -1,0 +1,5 @@
+<h1>Marknad Instagram Photos</h1>
+<% @recent_media_items.each do |media| %>
+
+<a href="/items/new?photo_id=<%= media.link.split("/")[4]%>"><img src="<%= media.images.thumbnail.url%>"></a>
+<% end%>

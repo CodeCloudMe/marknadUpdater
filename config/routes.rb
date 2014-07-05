@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  root :to => 'users#index'
+  resources :items
+
+  resources :sessions
+
+  resources :feeds
+
+  root :to => 'feeds#index'
 resources :user_sessions
 resources :users
 
@@ -13,6 +19,8 @@ post 'logout' => 'user_sessions#destroy', :as => :logout
   get 'user_sessions/create'
 
   get 'user_sessions/destroy'
+
+ #get 'sessions/connect'
 
   resources :users
 
@@ -73,3 +81,5 @@ post 'logout' => 'user_sessions#destroy', :as => :logout
   #     resources :products
   #   end
 end
+
+
