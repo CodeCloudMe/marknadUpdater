@@ -6,6 +6,7 @@ Note: you might want to use your own Access Token, as this sample one might expi
 
 * Ruby version
 1.9+
+Check this by running ruby-v from terminal on Mac or (Git Bash on PC). If you don't have 1.9 or higher, get rvm and install Ruby version 2.1.1 and then run: rvm --default use 2.1.1 )
 
 * System dependencies
 Rails 4.0+
@@ -46,7 +47,8 @@ Run rhc setup to see a list of your apps. Take note of your Rails app name. It w
 Now that you're back into your folder, set your SECRET_KEY_BASE: rhc set-env SECRET_KEY_BASE=yourSecretFromTheServer -a yourOpenShiftAppName
 
 Now run:
-bundle install
+
+ bundle install
  bin/rake db:migrate RAILS_ENV=development
  rails server
 
@@ -58,8 +60,11 @@ git push origin master
 
 Navigate to your OpenShift URL once that's complete and you should see this: http://railsupdater-tester588.rhcloud.com/posts
 
+**********
 
-To run on your local, clone this repo.
+(local)
+
+To run on your computer, clone this repo.
 Then once you cd into the app deirectory, run:
  bundle install
  bin/rake db:migrate RAILS_ENV=development
